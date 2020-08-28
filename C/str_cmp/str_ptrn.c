@@ -4,7 +4,7 @@
 enum consts { STR_SIZE = 50, SUCC = 0, FAIL = 1 };
 
 int read_str(char *str);
-int str_cmp(char *str1, char *str2);
+int str_ptrn(char *str1, char *str2);
 int match_star(char *str1, char *str2);
 
 int main(void) {
@@ -17,7 +17,7 @@ int main(void) {
   read_str(str2);
   printf("String 2 is: %s\n", str2);
 
-  if (str_cmp(str1, str2) == SUCC)
+  if (str_ptrn(str1, str2) == SUCC)
     fputs("Strings are equal!\n", stdout);
   else
     fputs("Strings are different!\n", stdout);
@@ -45,17 +45,17 @@ int read_str(char *str) {
   return SUCC;
 }
 
-int str_cmp(char *str1, char *str2) {
+int str_ptrn(char *str1, char *str2) {
   if (!(*str1) && !(*str2))
     return SUCC;
   if ((!(*str1) ^ !(*str2)))
     return FAIL;
   else if (*str1 == *str2)
-    return str_cmp(str1+1, str2+1);
+    return str_ptrn(str1+1, str2+1);
   else if (*str2 == '?')
-    return str_cmp(str1+1, str2+1);
+    return str_ptrn(str1+1, str2+1);
   else if (*str2 == '*')
-    return match_star(str1+1, str2+1);
+    return match_star(str1, str2+1);
   else
     return FAIL;
 }
@@ -64,7 +64,7 @@ int match_star(char *str1, char *str2) {
   if (!(*str2))
     return SUCC;
   else if (*str1 == *str2)
-    return str_cmp(str1+1, str2+1);
+    return str_ptrn(str1+1, str2+1);
   else if(!(*str1))
     return FAIL;
   else 
