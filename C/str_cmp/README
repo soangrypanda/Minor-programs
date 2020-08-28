@@ -1,3 +1,0 @@
-This is a basic implementation of a string compare function. Accepts two strings from a keybord.
-Supports '*' and '?' in a second provided string. Yells if either of strings has space character.
-Both strings has a limited size. This is an educational program, after all.
